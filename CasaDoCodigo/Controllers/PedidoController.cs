@@ -71,5 +71,24 @@ namespace CasaDoCodigo.Controllers
         {
             return await pedidoRepository.UpdateQuantidade(itemPedido);
         }
+
+        public IActionResult BuscaDeProdutos()
+        {
+            var produtos = produtoRepository.GetProdutos().OrderBy(p => p.Categoria.Id);
+            IList<BuscaViewModel> busca = new List<BuscaViewModel>();
+            foreach (var produto in produtos)
+            {
+                if(busca.Count == 0 || produto.Categoria.Id != busca.Last().Categoria.Id)
+                {
+                    BuscaViewModel categoriaResponse = new BuscaViewModel(produto.Categoria);
+                    busca.Add(categoriaResponse);
+                    busca.Last().Produtos.Add(produto);
+                } else
+                {
+                    busca.Last().Produtos.Add(produto);
+                }
+            }
+            return View(busca);
+        }
     }
 }
