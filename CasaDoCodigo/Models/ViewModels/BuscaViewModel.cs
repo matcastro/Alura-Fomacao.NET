@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 namespace CasaDoCodigo.Models.ViewModels
 {
     public class BuscaViewModel
-    {
-        public Categoria Categoria { get; }
+    { 
+        public string Pesquisa { get; set; }
         public IList<Produto> Produtos { get; }
-
-        public BuscaViewModel(Categoria categoria)
+        public BuscaViewModel(IList<Produto> produtos)
         {
-            Categoria = categoria;
-            Produtos = new List<Produto>();
+            Produtos = produtos;
         }
     }
 }
